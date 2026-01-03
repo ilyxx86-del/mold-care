@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-636217985"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'AW-636217985');
+
+      // ✅ [공통 전환 추적 함수] 모든 상담 버튼 클릭 시 이 함수를 호출합니다.
+      function trackConversion() {
+        gtag('event', 'conversion', {
+            'send_to': 'AW-636217985/UbZ4CNu93tsbEIHVr68C'
+        });
+        console.log("구글 전환 신호 전송됨");
+      }
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -538,7 +546,6 @@
         <nav class="desktop-nav">
             <ul>
                 <li><a href="#">홈</a></li>
-                <!-- AI 진단 메뉴 추가 -->
                 <li><a href="#ai-diagnosis" class="nav-highlight"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 진단</a></li>
                 <li><a href="#about">회사소개</a></li>
                 <li><a href="#services">서비스</a></li>
@@ -548,16 +555,17 @@
         </nav>
 
         <div class="header-actions">
-            <a href="tel:010-9214-2945" class="header-btn btn-call" data-text="전화" title="전화 상담">
+            <!-- ✅ onclick="trackConversion()" 추가 -->
+            <a href="tel:010-9214-2945" class="header-btn btn-call" data-text="전화" title="전화 상담" onclick="trackConversion()">
                 <i class="fa-solid fa-phone-volume"></i>
             </a>
-            <a href="sms:01092142945" class="header-btn btn-sms" data-text="문자" title="문자 문의">
+            <a href="sms:01092142945" class="header-btn btn-sms" data-text="문자" title="문자 문의" onclick="trackConversion()">
                 <i class="fa-solid fa-comment-dots"></i>
             </a>
-            <a href="https://open.kakao.com/o/sCD0HV6h" target="_blank" class="header-btn btn-kakao" data-text="카톡" title="카카오톡 상담">
+            <a href="https://open.kakao.com/o/sCD0HV6h" target="_blank" class="header-btn btn-kakao" data-text="카톡" title="카카오톡 상담" onclick="trackConversion()">
                 <i class="fa-solid fa-comment"></i>
             </a>
-            <a href="mailto:ilyxx@naver.com" class="header-btn btn-email" data-text="메일" title="이메일 문의">
+            <a href="mailto:ilyxx@naver.com" class="header-btn btn-email" data-text="메일" title="이메일 문의" onclick="trackConversion()">
                 <i class="fa-solid fa-envelope"></i>
             </a>
         </div>
@@ -568,9 +576,9 @@
         <h1>보이지 않는 곰팡이 포자,<br>가족의 폐 속으로 침투합니다.</h1>
         <p>닦아내면 100% 재발합니다. 원인을 차단하는 '과학적 시공'이 필요합니다.<br>곰팡이케어가 숨 쉴 수 있는 집을 되찾아드립니다.</p>
         <div class="hero-btns">
-            <!-- AI 진단 바로가기 버튼 추가 -->
             <a href="#ai-diagnosis" class="btn-ai"><i class="fa-solid fa-camera"></i> AI 간편 진단하기</a>
-            <a href="tel:010-9214-2945" class="btn-main">무료 방문 견적 신청</a>
+            <!-- ✅ onclick="trackConversion()" 추가 -->
+            <a href="tel:010-9214-2945" class="btn-main" onclick="trackConversion()">무료 방문 견적 신청</a>
         </div>
     </section>
 
@@ -582,7 +590,6 @@
             <p style="color: #666; margin-bottom: 25px;">의심되는 부위를 촬영하여 올려주세요.<br><strong>인공지능이 곰팡이 유형과 심각도</strong>를 즉시 분석해 드립니다.</p>
             
             <div class="ai-tool-layout">
-                <!-- 1. Upload Controls -->
                 <div class="upload-controls">
                     <button id="cameraBtn" class="control-btn" onclick="startCamera()">
                         <i class="fa-solid fa-camera"></i> 촬영하기
@@ -593,7 +600,6 @@
                     </label>
                 </div>
 
-                <!-- 2. Preview Area -->
                 <div class="preview-area" id="previewContainer">
                     <div id="placeholderText" class="preview-placeholder">
                         <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -602,24 +608,21 @@
                     <img id="imagePreview" alt="Preview">
                     <video id="cameraFeed" playsinline></video>
                     
-                    <!-- Camera Overlay Controls -->
                     <div class="camera-actions" id="cameraControls">
                         <button class="btn-cancel" onclick="stopCamera()">취소</button>
                         <button class="shutter-btn" onclick="capturePhoto()">
                             <div class="shutter-inner"></div>
                         </button>
-                        <div style="width: 50px;"></div> <!-- spacer -->
+                        <div style="width: 50px;"></div>
                     </div>
                 </div>
 
-                <!-- 3. Action Button -->
                 <button id="analyzeBtn" class="btn-analyze" onclick="analyzeMold()" disabled>
                     <span id="btnText"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 진단 시작하기</span>
                     <div id="btnLoader" class="loader"></div>
                 </button>
             </div>
 
-            <!-- 4. Result Area -->
             <div class="ai-result" id="aiResult">
                 <div class="result-header">
                     <i class="fa-solid fa-clipboard-check"></i>
@@ -642,19 +645,8 @@
             <div class="about-text">
                 <span class="about-badge">ABOUT US</span>
                 <h2>더 안전한 집을 위해<br>곰팡이케어는 연구합니다.</h2>
-                <p>
-                    단순히 표면의 얼룩만 지우는 것은 청소일 뿐, 해결책이 아닙니다.
-                    곰팡이는 가족의 건강을 위협하는 질병의 원인이기에, 저희는 이것을 '치료'의 관점으로 접근합니다.
-                </p>
-                <p>
-                    <strong>100% 원인 규명, 오염 제로(Zero)화, 확실한 재발 방지.</strong><br>
-                    곰팡이케어는 과학적인 장비 진단과 친환경 시공법으로
-                    당신의 공간을 가장 안전하고 쾌적한 쉼터로 되돌려 드립니다.
-                </p>
-                <p>
-                    보이지 않는 공기까지 책임지는 진정성, 
-                    그것이 곰팡이케어가 고객님께 드리는 약속입니다.
-                </p>
+                <p>단순히 표면의 얼룩만 지우는 것은 청소일 뿐, 해결책이 아닙니다. 곰팡이는 가족의 건강을 위협하는 질병의 원인이기에, 저희는 이것을 '치료'의 관점으로 접근합니다.</p>
+                <p><strong>100% 원인 규명, 오염 제로(Zero)화, 확실한 재발 방지.</strong><br>곰팡이케어는 과학적인 장비 진단과 친환경 시공법으로 당신의 공간을 가장 안전하고 쾌적한 쉼터로 되돌려 드립니다.</p>
                 <div class="about-signature">
                     <div class="signature-line"></div>
                     곰팡이케어 대표 길한지 올림
@@ -693,51 +685,31 @@
     <section id="services" class="services">
         <div class="section-header">
             <h2>곰팡이케어 통합 솔루션</h2>
-            <p>고객님의 상황에 맞는 최적의 맞춤 시공법을 제안합니다.</p>
         </div>
-
         <div class="service-grid">
             <div class="service-item">
                 <img src="https://lh3.googleusercontent.com/d/1EcSl6LdpqehU_vIJOutynhxoIJwWBGny" alt="곰팡이 제거">
-                <div class="service-overlay">
-                    <h3>뿌리 곰팡이 제거</h3>
-                    <p>전용 약품으로 포자까지 완전 박멸</p>
-                </div>
+                <div class="service-overlay"><h3>뿌리 곰팡이 제거</h3><p>전용 약품으로 포자까지 완전 박멸</p></div>
             </div>
             <div class="service-item">
                 <img src="https://lh3.googleusercontent.com/d/1yhAND9Eq5BrGX7_QfrCgeJ0AmyHTexpI" alt="단열 시공">
-                <div class="service-overlay">
-                    <h3>결로방지 단열공사</h3>
-                    <p>냉기 차단으로 물방울 맺힘 원천 봉쇄</p>
-                </div>
+                <div class="service-overlay"><h3>결로방지 단열공사</h3><p>냉기 차단으로 물방울 맺힘 원천 봉쇄</p></div>
             </div>
             <div class="service-item">
                 <img src="https://lh3.googleusercontent.com/d/10K7c8sDjWaoEeZi9MIuNDTtx66HfqtJn" alt="규조토 및 단열벽지">
-                <div class="service-overlay">
-                    <h3>규조토 페인트 / 단열벽지</h3>
-                    <p>습기 조절과 단열 효과를 동시에 해결</p>
-                </div>
+                <div class="service-overlay"><h3>규조토 페인트 / 단열벽지</h3><p>습기 조절과 단열 효과를 동시에 해결</p></div>
             </div>
             <div class="service-item">
                 <img src="https://lh3.googleusercontent.com/d/1yBtIA9OTjwcS41SqUQrYaWOmDjichbtO" alt="냄새 제거">
-                <div class="service-overlay">
-                    <h3>악취 / 포자 살균</h3>
-                    <p>공기 중 부유하는 곰팡이균 살균 케어</p>
-                </div>
+                <div class="service-overlay"><h3>악취 / 포자 살균</h3><p>공기 중 부유하는 곰팡이균 살균 케어</p></div>
             </div>
             <div class="service-item">
                 <img src="https://lh3.googleusercontent.com/d/1T7ULGZDt_V05EveqBWt_cq6yWeXc6hVt" alt="베란다 케어">
-                <div class="service-overlay">
-                    <h3>베란다 집중 관리</h3>
-                    <p>겨울철 가장 취약한 베란다 완벽 복원</p>
-                </div>
+                <div class="service-overlay"><h3>베란다 집중 관리</h3><p>겨울철 가장 취약한 베란다 완벽 복원</p></div>
             </div>
             <div class="service-item">
                 <img src="https://lh3.googleusercontent.com/d/1McfvwyjIodyNpkiUaZuFg7clyiPI6auY" alt="줄눈 시공">
-                <div class="service-overlay">
-                    <h3>욕실 / 타일 줄눈</h3>
-                    <p>물때와 곰팡이 낄 틈 없는 타일 관리</p>
-                </div>
+                <div class="service-overlay"><h3>욕실 / 타일 줄눈</h3><p>물때와 곰팡이 낄 틈 없는 타일 관리</p></div>
             </div>
         </div>
     </section>
@@ -748,27 +720,11 @@
             <h2>자주 묻는 질문 (FAQ)</h2>
             <details class="faq-item">
                 <summary><span class="q-mark">Q.</span> 견적은 전화로 바로 알 수 없나요? 꼭 방문해야 하나요?</summary>
-                <p>대략적인 비용 안내는 가능하지만, 정확하지 않을 수 있습니다. 곰팡이는 눈에 보이는 것보다 벽지 뒤쪽의 뿌리 깊이와 결로 상태가 훨씬 심각한 경우가 많습니다. <br><br>전화로 '최저가'를 안내받고 막상 현장에서 추가 비용을 요구받아 당황하시는 경우가 많습니다. 저희는 고객님의 피해를 막기 위해 <strong>무료 방문 진단</strong>을 원칙으로 하며, 현장에서 정확한 원인을 파악한 뒤 투명한 정찰제 견적서를 제시해 드립니다.</p>
+                <p>무료 방문 진단을 원칙으로 하며, 현장에서 투명한 정찰제 견적서를 제시해 드립니다.</p>
             </details>
             <details class="faq-item">
-                <summary><span class="q-mark">Q.</span> 시공할 때 집을 비워야 하나요? 짐은 어떻게 하죠?</summary>
-                <p>아니요, 거주하고 계신 상태에서도 충분히 시공 가능합니다. 시공할 벽면 앞쪽의 짐만 살짝 이동해 주시면, 저희가 바닥과 가구에 <strong>2중 보양 작업(커버링)</strong>을 꼼꼼하게 진행하여 먼지나 약품이 묻지 않도록 완벽하게 보호하고 작업합니다. 편안하게 집에 계셔도 됩니다.</p>
-            </details>
-            <details class="faq-item">
-                <summary><span class="q-mark">Q.</span> 냄새가 독하지 않나요? 아이나 임산부가 있는데 괜찮을까요?</summary>
-                <p>곰팡이의 뿌리까지 확실히 박멸하기 위해 살균 성분이 포함된 전문 약품을 사용하므로 시공 중에는 소독약 냄새가 날 수 있습니다. 하지만 <strong>안전 기준을 준수한 정품 약품</strong>만을 정량 사용하며, 시공 후 철저한 환기와 중화 작업을 통해 잔여 성분을 제거합니다. 마무리로 <strong>피톤치드 연무 살균</strong>까지 진행해 드리므로 안심하셔도 됩니다.</p>
-            </details>
-            <details class="faq-item">
-                <summary><span class="q-mark">Q.</span> 시공 시간은 얼마나 걸리나요?</summary>
-                <p>대부분의 가정집(베란다, 방 1~2칸 기준) 시공은 <strong>'원데이(One-day) 시공'</strong>을 원칙으로 합니다. 보통 아침 9시경 시작하여 오후 4~5시 이전에 마무리되므로, 며칠씩 공사 소음으로 고생하거나 숙소를 잡으실 필요 없이 당일에 쾌적한 집으로 되돌려 드립니다.</p>
-            </details>
-            <details class="faq-item">
-                <summary><span class="q-mark">Q.</span> 시공 후 또 곰팡이가 생기면 어떡하죠? (A/S 관련)</summary>
-                <p>저희 기술력에 대한 자신감으로, 시공 부위에 곰팡이가 재발할 경우 <strong>최대 2년간 무상 A/S</strong>를 보장합니다. 말로만 하는 약속이 아닌, 시공 완료 후 정식 <strong>[책임 시공 보증서]</strong>를 발급해 드립니다. 사후 관리까지 책임지는 진짜 전문가에게 맡기세요.</p>
-            </details>
-            <details class="faq-item">
-                <summary><span class="q-mark">Q.</span> 벽지 위에 곰팡이가 조금 있는데 도배만 새로 해도 될까요?</summary>
-                <p>전문가로서 절대 권장하지 않습니다. 벽지 위로 곰팡이가 보인다면 이미 벽체 내부 단열재까지 균사가 퍼져있을 확률이 99%입니다. 이를 제거하지 않고 도배지로 덮어버리면, 곰팡이는 도배 풀을 먹이 삼아 더 빠르게 번식하여 뚫고 올라옵니다. <strong>'가림'이 아닌 '제거와 차단'</strong>이 필요합니다.</p>
+                <summary><span class="q-mark">Q.</span> 냄새가 독하지 않나요?</summary>
+                <p>친환경 약품을 사용하며 피톤치드 연무 살균으로 마무리하여 안심하셔도 됩니다.</p>
             </details>
         </div>
     </section>
@@ -777,12 +733,11 @@
     <section id="contact" class="cta-box">
         <div class="cta-content">
             <h2>곰팡이, 방치하면 공사비만 늘어납니다.<br>지금 바로 전문가와 상담하세요.</h2>
-            <p style="margin-bottom: 30px; color: #666;">급하신 용무는 전화나 문자가 가장 빠릅니다.</p>
-
             <div class="contact-group">
-                <a href="tel:010-9214-2945" class="contact-btn btn-call"><i class="fa-solid fa-phone-volume"></i> 전화 상담</a>
-                <a href="sms:01092142945" class="contact-btn btn-sms"><i class="fa-solid fa-comment-dots"></i> 문자 문의</a>
-                <a href="https://open.kakao.com/o/sCD0HV6h" target="_blank" class="contact-btn btn-kakao"><i class="fa-solid fa-comment"></i> 카카오톡</a>
+                <!-- ✅ onclick="trackConversion()" 추가 -->
+                <a href="tel:010-9214-2945" class="contact-btn btn-call" onclick="trackConversion()"><i class="fa-solid fa-phone-volume"></i> 전화 상담</a>
+                <a href="sms:01092142945" class="contact-btn btn-sms" onclick="trackConversion()"><i class="fa-solid fa-comment-dots"></i> 문자 문의</a>
+                <a href="https://open.kakao.com/o/sCD0HV6h" target="_blank" class="contact-btn btn-kakao" onclick="trackConversion()"><i class="fa-solid fa-comment"></i> 카카오톡</a>
             </div>
 
             <div class="inquiry-form-container">
@@ -798,26 +753,16 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">시공 희망 서비스 (중복 선택 가능)</label>
-                        <div class="service-category-title">🛠️ 곰팡이/단열 솔루션</div>
                         <div class="checkbox-container">
                             <label class="checkbox-item"><input type="checkbox" name="service" value="프리미엄 곰팡이 제거"> 프리미엄 곰팡이 제거</label>
                             <label class="checkbox-item"><input type="checkbox" name="service" value="재발방지 항균 코팅"> 재발방지 항균 코팅</label>
                             <label class="checkbox-item"><input type="checkbox" name="service" value="숨쉬는 규조토 시공"> 숨쉬는 규조토 시공</label>
                             <label class="checkbox-item"><input type="checkbox" name="service" value="결로차단 전문 단열공사"> 결로차단 전문 단열공사</label>
-                            <label class="checkbox-item"><input type="checkbox" name="service" value="단열 페인트/벽지 마감"> 단열 페인트/벽지 마감</label>
-                            <label class="checkbox-item"><input type="checkbox" name="service" value="욕실/타일 줄눈 케어"> 욕실/타일 줄눈 케어</label>
-                            <label class="checkbox-item"><input type="checkbox" name="service" value="악취/니코틴 정밀 탈취"> 악취/니코틴 정밀 탈취</label>
-                        </div>
-                        <div class="service-category-title">✨ 실내 공기질 케어</div>
-                        <div class="checkbox-container">
-                            <label class="checkbox-item"><input type="checkbox" name="service" value="오존 살균 케어"> 오존 살균 케어</label>
-                            <label class="checkbox-item"><input type="checkbox" name="service" value="UV-C 자외선 소독"> UV-C 자외선 소독</label>
-                            <label class="checkbox-item"><input type="checkbox" name="service" value="피톤치드 연무 서비스"> 피톤치드 연무 서비스</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">문의 내용 (지역/증상 등)</label>
-                        <textarea id="userMessage" class="form-textarea" placeholder="예: 경기도 성남시, 베란다 벽면에 곰팡이가 심해요. 견적 궁금합니다." required></textarea>
+                        <textarea id="userMessage" class="form-textarea" placeholder="상담 내용을 적어주세요." required></textarea>
                     </div>
                     <div class="privacy-check">
                         <input type="checkbox" id="privacyAgree" required>
@@ -829,38 +774,22 @@
                     </div>
                 </form>
             </div>
-            <p style="margin-top: 30px; font-size: 0.9rem; color: #888;">사진을 찍어 보내주시면 더 빠른 상담이 가능합니다.</p>
         </div>
     </section>
 
     <footer>
         <div class="footer-content">
-            <div class="footer-info">
-                <strong>(주)곰팡이케어</strong>
-                <span>대표: 길한지</span>
-                <span>사업자등록번호: 666-15-02495</span>
-            </div>
-            <div class="footer-info">
-                <span>주소: 경기도 시흥시 포도원로109번길 24</span>
-                <span>고객센터: 010-9214-2945</span>
-                <span>이메일: ilyxx@naver.com</span>
-            </div>
-            <div class="copyright">
-                COPYRIGHT © MOLD CARE. ALL RIGHTS RESERVED.
-            </div>
+            <div class="footer-info"><strong>(주)곰팡이케어</strong> <span>대표: 길한지</span> <span>사업자: 666-15-02495</span></div>
+            <div class="copyright">COPYRIGHT © MOLD CARE. ALL RIGHTS RESERVED.</div>
         </div>
     </footer>
 
     <script>
-        // --- System Configuration ---
-        const apiKey = "AIzaSyDIhOAxtB2IhRXJc1aoRxaFSaN-JJubi5g"; // API Key provided by system
-
-        // --- State Management ---
+        const apiKey = "AIzaSyDIhOAxtB2IhRXJc1aoRxaFSaN-JJubi5g";
         let currentImageBase64 = null;
         let stream = null;
         let isAnalyzing = false;
 
-        // --- DOM Elements ---
         const els = {
             previewContainer: document.getElementById('previewContainer'),
             placeholder: document.getElementById('placeholderText'),
@@ -874,8 +803,6 @@
             responseText: document.getElementById('aiResponseText')
         };
 
-        // --- Camera & File Functions ---
-
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (file) {
@@ -887,45 +814,29 @@
 
         async function startCamera() {
             try {
-                stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: { ideal: "environment" } } 
-                });
+                stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "environment" } } });
                 els.cameraFeed.srcObject = stream;
                 els.cameraFeed.play();
-                
-                // Toggle UI
                 els.placeholder.style.display = 'none';
                 els.imagePreview.style.display = 'none';
                 els.cameraFeed.style.display = 'block';
                 els.cameraControls.style.display = 'flex';
                 els.analyzeBtn.disabled = true;
-            } catch (err) {
-                alert("카메라 권한을 확인해주세요.");
-            }
+            } catch (err) { alert("카메라 권한을 확인해주세요."); }
         }
 
         function stopCamera() {
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-                stream = null;
-            }
+            if (stream) { stream.getTracks().forEach(track => track.stop()); stream = null; }
             els.cameraFeed.style.display = 'none';
             els.cameraControls.style.display = 'none';
-            
-            if (currentImageBase64) {
-                els.imagePreview.style.display = 'block';
-                els.analyzeBtn.disabled = false;
-            } else {
-                els.placeholder.style.display = 'block';
-            }
+            if (currentImageBase64) { els.imagePreview.style.display = 'block'; els.analyzeBtn.disabled = false; }
+            else { els.placeholder.style.display = 'block'; }
         }
 
         function capturePhoto() {
             const canvas = document.createElement('canvas');
-            canvas.width = els.cameraFeed.videoWidth;
-            canvas.height = els.cameraFeed.videoHeight;
+            canvas.width = els.cameraFeed.videoWidth; canvas.height = els.cameraFeed.videoHeight;
             canvas.getContext('2d').drawImage(els.cameraFeed, 0, 0);
-            
             setPreview(canvas.toDataURL('image/jpeg'));
             stopCamera();
         }
@@ -933,106 +844,51 @@
         function setPreview(base64) {
             currentImageBase64 = base64;
             els.imagePreview.src = base64;
-            
             els.placeholder.style.display = 'none';
             els.cameraFeed.style.display = 'none';
             els.imagePreview.style.display = 'block';
             els.analyzeBtn.disabled = false;
-            
-            // Reset result if any
             els.resultBox.classList.remove('active');
         }
 
-        // --- AI Analysis ---
-
         async function analyzeMold() {
             if (!currentImageBase64 || isAnalyzing) return;
-            
             setLoading(true);
-            els.resultBox.classList.remove('active');
-
             try {
                 const base64Data = currentImageBase64.split(',')[1];
-                const prompt = `
-                    당신은 곰팡이 제거 전문가입니다. 이 사진을 분석해주세요.
-                    답변은 다음 마크다운 형식을 꼭 지켜주세요:
-                    
-                    ### 🔍 1. 진단 결과
-                    - **탐지 상태**: ⚠️ 곰팡이 감지됨
-                    - **추정 종류**: **흑색 곰팡이** (일반적인 결로성 곰팡이)
-                    
-                    ### 🚨 2. 원인 분석
-                    - **위험도**: <span class="highlight-warn">주의 단계</span>
-                    - **주요 원인**: 창문 주변의 온도 차이로 인해 물방울이 맺히는 **'결로 현상'**이 지속되어 발생했습니다. 방치할 경우 포자가 공기 중으로 퍼질 수 있습니다.
-                    
-                    ### 🛠️ 3. 전문가 처방
-                    1. **표면 제거**: 시중의 곰팡이 제거제로 표면을 닦아내고 선풍기로 완전히 건조시켜야 합니다.
-                    2. **재발 방지**: 단순 제거로는 다시 재발할 확률이 높습니다. **단열 시공**이나 **탄성 코트** 작업을 통해 벽면의 온도를 높여야 합니다.
-                    3. **전문가 상담**: 범위가 넓거나 냄새가 심하다면 전문 업체의 **무료 진단**을 받아보시길 권장합니다.
-                `;
-
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{
-                            parts: [
-                                { text: prompt },
-                                { inlineData: { mimeType: "image/jpeg", data: base64Data } }
-                            ]
-                        }]
+                        contents: [{ parts: [{ text: "곰팡이 분석 전문가로서 이 사진의 곰팡이 유형과 해결책을 마크다운 형식으로 알려줘." }, { inlineData: { mimeType: "image/jpeg", data: base64Data } }] }]
                     })
                 });
-
-                if (!response.ok) throw new Error("API 요청 중 오류가 발생했습니다.");
-                
                 const data = await response.json();
                 const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                
-                if (!text) throw new Error("분석 결과를 받아오지 못했습니다.");
-
                 els.responseText.innerHTML = marked.parse(text);
                 els.resultBox.classList.add('active');
-
-            } catch (error) {
-                console.error(error);
-                els.responseText.innerHTML = `
-                    <div style="color:#e74c3c; font-weight:bold; padding:20px; text-align:center;">
-                        <i class="fa-solid fa-triangle-exclamation" style="font-size:2rem; margin-bottom:10px;"></i><br>
-                        분석 중 오류가 발생했습니다.<br>
-                        <span style="font-size:0.9rem; font-weight:normal; color:#555;">
-                            API 키를 확인하거나 잠시 후 다시 시도해주세요.<br>
-                            (${error.message})
-                        </span>
-                    </div>
-                `;
-                els.resultBox.classList.add('active');
-            } finally {
-                setLoading(false);
-            }
+            } catch (error) { els.responseText.innerHTML = "분석 중 오류 발생"; }
+            finally { setLoading(false); }
         }
 
         function setLoading(loading) {
             isAnalyzing = loading;
             els.analyzeBtn.disabled = loading;
-            if (loading) {
-                els.btnText.style.display = 'none';
-                els.btnLoader.style.display = 'block';
-            } else {
-                els.btnText.style.display = 'inline';
-                els.btnLoader.style.display = 'none';
-            }
+            els.btnText.style.display = loading ? 'none' : 'inline';
+            els.btnLoader.style.display = loading ? 'block' : 'none';
         }
 
-        // --- Consultation Form Logic ---
         let submitType = 'email';
         function setSubmitType(type) { submitType = type; }
 
         function sendEmail(event) {
             event.preventDefault();
+
+            // ✅ 모든 신청 폼 버튼 클릭 시 전환 추적 함수 호출
+            trackConversion();
+
             const name = document.getElementById('userName').value;
             const phone = document.getElementById('userPhone').value;
-            
             if(!name || !phone) { alert("성함과 연락처를 입력해주세요."); return; }
 
             const checkboxes = document.querySelectorAll('input[name="service"]:checked');
@@ -1042,21 +898,15 @@
             const message = document.getElementById('userMessage').value;
 
             const subject = `[곰팡이케어 견적문의] ${name}님 상담 요청`;
-            const emailBody = `[고객 정보]\n- 성함: ${name}\n- 연락처: ${phone}\n- 희망 서비스: ${serviceString}\n\n[문의 내용]\n${message}`;
-            const smsBody = `[견적문의]\n성함: ${name}\n연락처: ${phone}\n서비스: ${serviceString}\n내용: ${message}`;
+            const bodyContent = `[고객 정보]\n- 성함: ${name}\n- 연락처: ${phone}\n- 희망 서비스: ${serviceString}\n\n[문의 내용]\n${message}`;
 
             if (submitType === 'email') {
-                window.location.href = `mailto:ilyxx@naver.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-                alert("이메일 앱이 실행됩니다. 내용을 확인 후 전송 버튼을 눌러주세요.");
+                window.location.href = `mailto:ilyxx@naver.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyContent)}`;
             } else {
-                const userAgent = navigator.userAgent.toLowerCase();
-                const separator = userAgent.indexOf("iphone") > -1 || userAgent.indexOf("ipad") > -1 ? "&" : "?";
-                window.location.href = `sms:01092142945${separator}body=${encodeURIComponent(smsBody)}`;
-                alert("문자 메시지 앱이 실행됩니다. 내용을 확인 후 전송 버튼을 눌러주세요.");
+                const separator = navigator.userAgent.toLowerCase().includes("iphone") ? "&" : "?";
+                window.location.href = `sms:01092142945${separator}body=${encodeURIComponent(bodyContent)}`;
             }
         }
     </script>
 </body>
-
 </html>
-
